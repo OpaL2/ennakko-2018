@@ -46,3 +46,5 @@ Generates new measurement point, takes in json object:
 }
 
 ```
+
+Returns updated data in same format as get /measurements/latest request.
