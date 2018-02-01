@@ -12,7 +12,7 @@ throw err;
 });
 
 //uses :key and js objects for query formatting
-function format(query, values) {
+var format = (query, values) => {
   if(!values) {
     return query;
   }
@@ -44,3 +44,5 @@ exports.query = (query, values) => {
     });
   });
 };
+
+exports.DB = db;

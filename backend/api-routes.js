@@ -24,7 +24,7 @@ function err(res, errStatus) {
     {errStatus = 500};
   return (data) => {
     log.error('Caught error', util.inspect(data));
-    res.sendStatus(errStatus):
+    res.sendStatus(errStatus);
   };
 };
 
@@ -39,3 +39,5 @@ router.get('/measurements/latest', (req, res) => {
 router.post('/measurements', jsonParser, (req, res) => {
 
 });
+
+module.exports = router
