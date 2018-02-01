@@ -4,14 +4,15 @@ START TRANSACTION;
 
 #Dropping old tables
 DROP TABLE IF EXISTS
-  re_locations,
-  re_measurements;
+  re_measurements,
+  re_locations;
+
 
 CREATE TABLE re_locations (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(128) NOT NULL,
-  latitude FLOAT NOT NULL,
-  longitude FLOAT NOT NULL,
+  latitude VARCHAR(128) NOT NULL,
+  longitude VARCHAR(128) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
