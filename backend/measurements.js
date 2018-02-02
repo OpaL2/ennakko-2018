@@ -3,17 +3,6 @@
 var db = require('./db');
 var Promise = require('./promise');
 
-select * FROM (SELECT max(registered_time) as latest, location_id, any_value(temperature) as temp_latest from re_measurements GROUP BY location_id) as t1 JOIN (SELECT location_id, MAX(temperature) as temp_max, MIN(temperature) as temp_min FROM re_measurements WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)  GROUP BY location_id) AS t2 on t1.location_id = t2.location_id;
-
-{
-  "measurements": [
-    
-      "latest": float,
-      "highest": float,
-      "lowest": float
-    }
-  ]
-
 var getLatest = () => {
   return db.query('\
     SELECT t1.location_id AS location_id, t1.temp_latest AS latest, \
