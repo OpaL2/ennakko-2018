@@ -3,6 +3,17 @@
 var db = require('./db');
 var Promise = require('./promise');
 
+//FIX get latest db query to fetch latest temperature with following query:
+//SELECT t1.location_id AS location_id, t3.temperature AS temp_latest 
+//FROM ( 
+//  SELECT MAX(registered_time) AS latest, location_id 
+//  FROM re_measurements 
+//  WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) 
+//  GROUP BY location_id) AS t1 
+//INNER JOIN re_measurements t3 
+//  ON t1.latest = t3.registered_time 
+//  AND t1.location_id = t3.location_id;
+
 var getLatest = () => {
   return db.query('\
     SELECT t1.location_id AS location_id, t1.temp_latest AS latest, \
