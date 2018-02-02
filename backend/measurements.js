@@ -11,11 +11,11 @@ var getLatest = () => {
       ANY_VALUE(temperature) AS temp_latest FROM\
       re_measurements \
       WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)\
-      GROUP BY location id) AS t1\
+      GROUP BY location_id) AS t1\
       JOIN (SELECT location_id, MAX(temperature) AS temp_max, \
       MIN(temperature) AS temp_min FROM \
       re_measurements \
-      WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR \
+      WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) \
       GROUP BY location_id) AS t2 \
       ON t1.location_id = t2.location_id;')
     .then( (res) => {
