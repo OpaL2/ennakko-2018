@@ -1,6 +1,7 @@
 # Own gitignore
 log/*
 config/config.js
+package-lock.json
 
 
 # Created by https://www.gitignore.io/api/node,linux,macos,windows,sublimetext
