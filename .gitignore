@@ -1,5 +1,5 @@
 # Own gitignore
-log/
+log/*
 config/config.js
 
 

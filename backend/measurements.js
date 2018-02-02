@@ -5,7 +5,7 @@ var Promise = require('./promise');
 
 
 var getLatest = () => {
-
+  return db.query('SELECT * FROM re_measurements;');
 };
 
 exports.getLatest = getLatest;

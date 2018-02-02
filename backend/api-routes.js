@@ -29,6 +29,7 @@ function err(res, errStatus) {
 };
 
 router.get('/locations', (req, res) => {
+  log.info('Locations requested from: ', req.socket.address());
   locations.getAll().then(ok(res), err(res))
 });
 

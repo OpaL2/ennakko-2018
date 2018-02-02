@@ -25,13 +25,15 @@ var format = (query, values) => {
 }
 
 // Returns new database connection
-function getConnection() {
+var  getConnection = () => {
   return new Promise( (resolve, reject) => {
     db.getConnection( (err, conn) => {
       err ? reject(err) : resolve(conn);
     });
   });
 }
+
+exports.getConnection;
 
 //does database query, returns promise for that query
 exports.query = (query, values) => {
@@ -44,5 +46,3 @@ exports.query = (query, values) => {
     });
   });
 };
-
-exports.DB = db;
