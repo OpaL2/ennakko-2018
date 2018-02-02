@@ -33,8 +33,6 @@ var  getConnection = () => {
   });
 }
 
-exports.getConnection;
-
 //does database query, returns promise for that query
 exports.query = (query, values) => {
   return getConnection().then( (conn) => {

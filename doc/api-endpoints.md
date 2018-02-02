@@ -26,7 +26,8 @@ Returns latest measurement for all locations and also highest and lowest measure
 ```
 {
   "measurements": [
-    "location_id": {
+    {
+      "location_id": int,
       "latest": float,
       "highest": float,
       "lowest": float
