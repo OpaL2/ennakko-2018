@@ -9,7 +9,8 @@ var jsonParser = bodyParser.json();
 var router = express.Router();
 
 var log = require('./log');
-var locations = require('./locations')
+var locations = require('./locations');
+var measurements = require('./measurements');
 
 //responsible for sending responses
 function ok(res) {
@@ -34,11 +35,12 @@ router.get('/locations', (req, res) => {
 });
 
 router.get('/measurements/latest', (req, res) => {
-
+  measurements.getLatest().then(ok(res), err(res));
 });
 
 router.post('/measurements', jsonParser, (req, res) => {
-
+  measurements.create(req.body.temperature, req.body.location_id)
+    .then(ok(res), err(res));
 });
 
-module.exports = router
+module.exports = router;
