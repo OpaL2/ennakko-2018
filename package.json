@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "node ./backend/app.js"
+    "start": "node ./app.js"
   },
   "dependencies": {
     "es6-promise":"^4.2.4",
