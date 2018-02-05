@@ -29,7 +29,7 @@ gulp.task('sass:watch', () => {
 
 function js(startPath, targetFile) {
   return function() {
-    return browserify({entries: startPath, debug: true})
+    return browserify({entries: startPath, debug: true, extensions: ['.jsx']})
       .transform(babelify, {presets: ['env', 'react']})
       .bundle()
       .on('error', function(err) {
@@ -48,6 +48,8 @@ function js(startPath, targetFile) {
 
 gulp.task('js', js('frontend/js/App.jsx', 'App.min.js'));
 
+gulp.task('compile', ['js', 'sass']);
+
 gulp.task('js:watch', () => {
   gulp.watch('frontend/js/**/*.js*', ['js']);
 });
@@ -57,6 +59,10 @@ gulp.task('watch', ['js:watch', 'sass:watch']);
 gulp.task('server', () => {
   var app = server.new('app.js');
   app.start();
+  gulp.watch(['frontend/public/**/*.min.js', 'frontend/public/**/*.min.css'], (f) => {
+    console.log('frontend recompiled, notifying livereload', f);
+    app.notify.apply(app, [f]);
+  });
 });
 
-gulp.task('default', ['server', 'watch']);
+gulp.task('default', ['compile', 'server', 'watch']);

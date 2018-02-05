@@ -29,7 +29,7 @@ exports.getLatest = () => {
 exports.postNew = (location, temp) => {
   return new Promise( (resolve, reject) => {
     $.ajax({
-      url: '/api/measurements/',
+      url: '/api/measurements',
       type: 'POST',
       data: {
         temperature: temp,
