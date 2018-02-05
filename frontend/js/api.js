@@ -31,10 +31,11 @@ exports.postNew = (location, temp) => {
     $.ajax({
       url: '/api/measurements',
       type: 'POST',
-      data: {
+      contentType: 'application/json',
+      data: JSON.stringify({
         temperature: temp,
         location_id: location
-      },
+      }),
       dataType: 'json'
     })
     .done( (res) => resolve(res))

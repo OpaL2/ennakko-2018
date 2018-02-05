@@ -46,7 +46,7 @@ function js(startPath, targetFile) {
   };
 }
 
-gulp.task('js', js('frontend/js/App.jsx', 'App.min.js'));
+gulp.task('js', js('frontend/js/App.js', 'App.min.js'));
 
 gulp.task('compile', ['js', 'sass']);
 
@@ -60,7 +60,7 @@ gulp.task('server', () => {
   var app = server.new('app.js');
   app.start();
   gulp.watch(['frontend/public/**/*.min.js', 'frontend/public/**/*.min.css'], (f) => {
-    console.log('frontend recompiled, notifying livereload', f);
+    console.log('frontend recompiled, notifying livereload');
     app.notify.apply(app, [f]);
   });
 });
