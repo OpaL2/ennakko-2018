@@ -9,7 +9,7 @@ exports.getLocations = () => {
       type: 'GET',
       dataType: 'json'
     })
-    .done( (res) => resolve(res))
+    .done( (res) => resolve(res.locations))
     .fail( (err) => reject(err));
   });
 }
@@ -21,7 +21,7 @@ exports.getLatest = () => {
       type: 'GET',
       dataType: 'json'
     })
-    .done( (res) => resolve(res))
+    .done( (res) => resolve(res.measurements))
     .fail( (err) => reject(err));
   });
 }
@@ -38,7 +38,7 @@ exports.postNew = (location, temp) => {
       }),
       dataType: 'json'
     })
-    .done( (res) => resolve(res))
+    .done( (res) => resolve(res.measurements))
     .fail( (err) => reject(err));
   });
 }

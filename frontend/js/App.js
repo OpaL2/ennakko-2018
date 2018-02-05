@@ -6,11 +6,15 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var api = require('./api');
 
+const LocationContainer = require('./components/LocationContainer');
+
 //react root element
-const rootNode = $("#react-root")[0];
+const mountNode = $("#react-root")[0];
 
 
 function onload() {
+  ReactDOM.render(React.createElement(LocationContainer,
+    {API: api}), mountNode);
 }
 
 $(document).ready(onload);
