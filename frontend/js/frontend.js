@@ -1,1 +1,0 @@
-//JS file for frontend of application
