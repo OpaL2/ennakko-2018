@@ -3,13 +3,11 @@
 var $ = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
+var api = require('./api')
 
-function getLocations() {
-  $.ajax({
-
-  })
+function onload() {
+  api.getLocations()
+  .then(console.log)
 }
 
-function renderLocations() {
-  
-}
+$(document).ready(onload);
