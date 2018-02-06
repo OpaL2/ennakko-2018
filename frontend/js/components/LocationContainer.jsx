@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 const Location = require('./Location');
 const Timer = require('./Timer');
@@ -80,39 +80,29 @@ module.exports = class LocationContainer extends React.Component {
 
   render() {
 
-    const SuccessAlert = (
-      <div id="success" className="alert alert-success alert-dismissible fade show" role="alert">
-        Your submission was recieved!
-        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      );
-
     if(this.state.locations && this.state.measurements) {
       return(
         <div className="LocationsContainer container">
           <Alerts alerts={this.state.alerts} handler={this.clearAlerts} />
-          <Timer counter={this.state.lastUpdate} />
-          <ul className="Locations row">
+          <div className="TimerContainer row">
+            Last updated: <Timer counter={this.state.lastUpdate} />
+          </div>
+          <div className="Locations row">
             {this.state.locations.map( (location) => 
-            <Location key={location.id}
-              info={location}
-              post = {this.post}
-              data={this.state.measurements}
-            />
-          )}
-        </ul>
+              <Location key={location.id}
+                info={location}
+                post = {this.post}
+                data={this.state.measurements}
+              />
+            )}
+          </div>
         </div>
       );
     }
 
     else {
       return( 
-        <div className="LocationsContainer">
-          <Timer counter={this.state.lastUpdate} />
-          <ul className="Locations">
-          </ul>
+        <div>
         </div>
       );
     }

@@ -9,7 +9,62 @@ Afterwards adds own css
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
+$font-stack: Henriette, slab-serif;
 
-h1 {
-  color: red;
+$primary-color: #444;
+$box-color: #20a0ff;
+$box-color-hover: #1090ef;
+$box-font-color: #fff;
+$seconday-color: #aaa;
+
+%highlight-box {
+  color: $box-font-color;
+  border: 1px solid $box-color;
+  background-color: $box-color;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0px 5px
+}
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+.Temperature {
+  @extend %highlight-box;
+  width: 5rem;
+  float: right;
+}
+
+.TimerContainer {
+  color: $seconday-color;
+  margin-bottom: 0.2rem;
+}
+
+.Timer {
+  padding: 0px 5px;
+}
+
+.Location {
+  min-width: 350px;
+}
+
+.MeasurementsInfo {
+  color: $seconday-color;
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  @extend %highlight-box;
+  padding: 0.2rem;
+}
+
+.btn:hover {
+  border-color: $box-color-hover;
+  background-color: $box-color-hover;
+}
+
+.card {
+  border-color: white;
 }

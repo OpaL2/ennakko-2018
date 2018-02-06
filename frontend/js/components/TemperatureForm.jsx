@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 module.exports = class TemperatureForm extends React.Component {
 
@@ -22,22 +22,22 @@ module.exports = class TemperatureForm extends React.Component {
 
   render() {
     return(
-      <form className="TemperatureForm container" onSubmit={this.handleSubmit}>
+      <form className="TemperatureForm list-group" onSubmit={this.handleSubmit}>
         <label>
-          <div className="row">
-            Temperature: 
-            <span className="Temperature">{this.state.temperature}</span>
+          <div className="list-group-item">
+            Temperature:
+            <span className="Temperature">{this.state.temperature} &deg;C</span>
           </div>
-          <div className="SliderContainer row">
+          <div className="SliderContainer list-group-item">
             <input type="range"
               min="-60"
               max="100"
-              className="TemperatureSlider"
+              className="TemperatureSlider container-fluid"
               value={this.state.temperature}
               onChange={this.handleChange} />
           </div>
         </label>
-        <input type="submit" value="Submit" className="row" />
+        <input type="submit" value="Submit" className="btn btn-primary" />
       </form>
       );
   }

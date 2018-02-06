@@ -1,10 +1,9 @@
 //JS file for frontend
 
-var $ = require('jquery');
-require('bootstrap');
-var React = require('react');
-var ReactDOM = require('react-dom');
-var api = require('./api');
+const $ = require('jquery');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const api = require('./api');
 
 const LocationContainer = require('./components/LocationContainer');
 

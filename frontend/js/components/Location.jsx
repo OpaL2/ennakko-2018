@@ -12,36 +12,43 @@ module.exports = class Location extends React.Component {
   render() {
     function Measurements(props) {
       return(
-        <div className="Measurements container">
-          <div className="row">
+        <ul className="Measurements list-group">
+          <span class="MeasurementsInfo">Last 24 hours:</span>
+          <li className="list-group-item">
           Latest:<span className="Temperature">
-            {props.data.latest !== null ? props.data.latest : "-"} 
+            {props.data.latest !== null ? props.data.latest : "-"} &deg;C
           </span>
-          </div>
-          <div className="row">
+          </li>
+          <li className="list-group-item">
           Max:<span className="Temperature">
-            {props.data.highest !== null ? props.data.highest : "-"}
+            {props.data.highest !== null ? props.data.highest : "-"} &deg;C
           </span>
-          </div>
-          <div className="row">
+          </li>
+          <li className="list-group-item">
           Min:<span className="Temperature">
-            {props.data.lowest !== null ? props.data.lowest : "-"}
+            {props.data.lowest !== null ? props.data.lowest : "-"} &deg;C
           </span>
-          </div>
-        </div>
+          </li>
+        </ul>
       );
     }
     return(
-        <li className="Location col-md-4">
-          <h2 className="Name">{this.props.info.name}</h2>
+        <div className="Location col-md-4 card">
+          <div className="card-body">
+            <h2 className="Name">{this.props.info.name}</h2>
+          </div>
+          <div className="card-body">
           <Measurements 
             data={$.grep(this.props.data, (e) => {
               return e.location_id === this.props.info.id
             })[0]}
             />
+          </div>
+          <div className="card-body">
           <TemperatureForm 
             post={(temperature) => this.props.post(this.props.info.id, temperature)}/>
-        </li>
+          </div>
+        </div>
     );
   }
 }
