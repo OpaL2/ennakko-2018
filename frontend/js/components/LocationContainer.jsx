@@ -9,8 +9,8 @@ module.exports = class LocationContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      locations: undefined, 
-      measurements: undefined, 
+      locations: [], 
+      measurements: [], 
       lastUpdate: 0
     };
     this.getLocations();
@@ -37,7 +37,7 @@ module.exports = class LocationContainer extends React.Component {
   getLocations(){
     this.props.API.getLocations()
     .then( (locations) => {
-      this.setState({locations: locations});
+      this.setState(locations);
     })
     .catch(this.apiError);
   }
@@ -45,7 +45,8 @@ module.exports = class LocationContainer extends React.Component {
   update(){
     this.props.API.getLatest()
     .then( (measurements) => {
-      this.setState({measurements: measurements, lastUpdate: 0});
+      this.setState(measurements);
+      this.setState({lastUpdate: 0});
     })
     .catch(this.apiError);
   }
@@ -55,33 +56,40 @@ module.exports = class LocationContainer extends React.Component {
   }
 
   post(location_id, temperature) {
-
+    this.props.API.post(location_id, temperature)
+    .then( (measurements) => {
+      this.setState(measurements);
+      this.setState({lastUpdate: 0});
+    })
+    .catch(this.apiError);
   }
 
   render() {
-    if(this.state.locations === undefined) {
-      return(
-        <div className="location-container" >
-          <Timer counter={this.state.lastUpdate} />
-        </div>
+    function LocationList(props) {
+      return (
+        <ul className="Locations" >
+          {props.locations.map( (location) => 
+            <Location key={location.id}
+              info={location}
+              post={props.post}
+              data={props.measurements}
+            />
+          )}
+        </ul>
       );
     }
-    else {
-      const container = this.locations.map( (location) => {
-        var parentProps = {
-          info: location,
-          submit: this.post,
-          measurements: this.state.measurements
-        };
-        return(<Location parent={parentProps} />);
-      });
 
-      return(
-        <div className="location-container" >
-          <Timer counter={this.state.lastUpdate} />
-          {container}
+    return(
+      <div className="LocationsContainer">
+        <Timer counter={this.state.lastUpdate} />
+        <div className="LocationWrapper">
+          <LocationList
+            post={this.post}
+            locations={this.state.locations}
+            data={this.state.measurements}
+          />
         </div>
-      );
-    }
+      </div>
+    );
   }
 }

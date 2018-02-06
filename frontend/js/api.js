@@ -9,7 +9,7 @@ exports.getLocations = () => {
       type: 'GET',
       dataType: 'json'
     })
-    .done( (res) => resolve(res.locations))
+    .done( (res) => resolve(res))
     .fail( (err) => reject(err));
   });
 }
@@ -21,12 +21,12 @@ exports.getLatest = () => {
       type: 'GET',
       dataType: 'json'
     })
-    .done( (res) => resolve(res.measurements))
+    .done( (res) => resolve(res))
     .fail( (err) => reject(err));
   });
 }
 
-exports.postNew = (location, temp) => {
+exports.post = (location, temp) => {
   return new Promise( (resolve, reject) => {
     $.ajax({
       url: '/api/measurements',
@@ -38,7 +38,7 @@ exports.postNew = (location, temp) => {
       }),
       dataType: 'json'
     })
-    .done( (res) => resolve(res.measurements))
+    .done( (res) => resolve(res))
     .fail( (err) => reject(err));
   });
 }
