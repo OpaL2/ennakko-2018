@@ -3,58 +3,19 @@
 var db = require('./db');
 var Promise = require('./promise');
 
-//FIX get latest db query to fetch latest temperature with following query:
-//SELECT t1.location_id AS location_id, t3.temperature AS temp_latest 
-//FROM ( 
-//  SELECT MAX(registered_time) AS latest, location_id 
-//  FROM re_measurements 
-//  WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) 
-//  GROUP BY location_id) AS t1 
-//INNER JOIN re_measurements t3 
-//  ON t1.latest = t3.registered_time 
-//  AND t1.location_id = t3.location_id;
-
-// var getLatest = () => {
-//   return db.query('\
-//     SELECT t1.location_id AS location_id, t1.temp_latest AS latest, \
-//     t2.temp_max AS highest, t2.temp_min AS lowest FROM \
-//       (SELECT MAX(registered_time) AS latest, location_id, \
-//       ANY_VALUE(temperature) AS temp_latest FROM\
-//       re_measurements \
-//       WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)\
-//       GROUP BY location_id) AS t1\
-//       JOIN (SELECT location_id, MAX(temperature) AS temp_max, \
-//       MIN(temperature) AS temp_min FROM \
-//       re_measurements \
-//       WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) \
-//       GROUP BY location_id) AS t2 \
-//       ON t1.location_id = t2.location_id;')
-//     .then( (res) => {
-//         return {measurements: res};
-//       });
-// };
-
 var getLatest = () => {
   return db.query('\
-    (SELECT id AS location_id FROM re_location) AS locations \
-    INNER JOIN ( \
-      (SELECT t1.location_id AS location_id, t2.temperature AS temp_latest \
-      FROM ( \
-        SELECT MAX(registered_time) AS latest, location_id \
-        FROM re_measurements \
-        WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) \
-        GROUP BY location_id) AS t1 \
-      INNER JOIN re_measurements t2 \
-        ON t1.latest = t2.registered_time \
-        AND t1.location_id = t2.location_id) AS latest \
-      JOIN \
-        (SELECT location_id, MAX(temperature) AS temp_max, MIN(temperature) AS temp_min \
-          FROM re_measurement \ 
-          WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR) \
-          GROUP BY location_id) AS minmax \
-        ON latest.location_id = minmax.location_id) AS data \
-      ON data.location_id = locations.location_id\
-    ')
+    SELECT locations.id AS location_id, t1.highest, t1.lowest, t2.temperature AS latest\
+    FROM re_locations locations\
+    LEFT JOIN\
+      (SELECT MAX(registered_time) AS time, location_id, MAX(temperature) AS highest, MIN(temperature) AS lowest\
+      FROM re_measurements\
+      WHERE registered_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)\
+      GROUP BY location_id) AS t1\
+    ON t1.location_id = id\
+    LEFT JOIN re_measurements t2\
+    ON t1.location_id = t2.location_id\
+    AND t1.time = t2.registered_time;')
     .then( (res) => {
       return {measurements: res};
     });
