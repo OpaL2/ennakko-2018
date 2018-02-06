@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+
 const Location = require('./Location');
 const Timer = require('./Timer');
 
@@ -8,6 +8,8 @@ module.exports = class LocationContainer extends React.Component {
 
   constructor(props){
     super(props);
+
+    this.post = this.post.bind(this);
     this.state = {
       locations: undefined, 
       measurements: undefined, 
@@ -20,6 +22,7 @@ module.exports = class LocationContainer extends React.Component {
   componentDidMount() {
     this.timerID = setInterval( () => this.tick(), 1000);
   }
+    
 
   componentWillUnmount() {
     clearInterval(this.timerID);
@@ -65,30 +68,20 @@ module.exports = class LocationContainer extends React.Component {
   }
 
   render() {
-    function LocationList(props) {
-      return (
-        <ul class="Locations">
-          {props.locations.map( (location) => 
-            <Location key={location.id}
-              info={location}
-              post={props.post}
-              data={props.data}
-            />
-          )}
-        </ul>
-      );
-    }
 
     if(this.state.locations && this.state.measurements) {
       return(
         <div className="LocationsContainer">
           <Timer counter={this.state.lastUpdate} />
-            <LocationList
-              post={(id, temp) => {this.post(id, temp)}}
-              locations={this.state.locations}
+          <ul className="Locations">
+            {this.state.locations.map( (location) => 
+            <Location key={location.id}
+              info={location}
+              post = {this.post}
               data={this.state.measurements}
             />
-
+          )}
+        </ul>
         </div>
       );
     }
@@ -97,7 +90,7 @@ module.exports = class LocationContainer extends React.Component {
       return( 
         <div className="LocationsContainer">
           <Timer counter={this.state.lastUpdate} />
-          <ul class="Locations">
+          <ul className="Locations">
           </ul>
         </div>
       );

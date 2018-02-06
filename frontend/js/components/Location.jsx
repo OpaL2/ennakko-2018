@@ -1,6 +1,8 @@
 var React = require('react');
 var $ = require('jquery');
 
+const TemperatureForm = require('./TemperatureForm');
+
 module.exports = class Location extends React.Component {
 
   constructor(props){
@@ -29,6 +31,8 @@ module.exports = class Location extends React.Component {
           <Measurements 
             data={$.grep(this.props.data, (e) => {return e.location_id === this.props.info.id})[0]}
             />
+          <TemperatureForm 
+            post={(temperature) => this.props.post(this.props.info.id, temperature)}/>
         </li>
     );
   }
