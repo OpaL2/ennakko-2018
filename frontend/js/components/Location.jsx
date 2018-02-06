@@ -28,7 +28,7 @@ module.exports = class Location extends React.Component {
         <div className="Location">
           <h2 className="Name">{this.props.info.name}</h2>
           <Measurements 
-            data={$.grep(this.props.data, (e) => {return e.id === this.props.key})[0]}
+            data={$.grep(this.props.data, (e) => {return e.location_id === this.props.info.id})[0]}
             />
         </div>
       </li>

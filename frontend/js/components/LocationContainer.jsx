@@ -9,8 +9,8 @@ module.exports = class LocationContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      locations: [], 
-      measurements: [], 
+      locations: undefined, 
+      measurements: undefined, 
       lastUpdate: 0
     };
     this.getLocations();
@@ -72,24 +72,36 @@ module.exports = class LocationContainer extends React.Component {
             <Location key={location.id}
               info={location}
               post={props.post}
-              data={props.measurements}
+              data={props.data}
             />
           )}
         </ul>
       );
     }
 
-    return(
-      <div className="LocationsContainer">
-        <Timer counter={this.state.lastUpdate} />
-        <div className="LocationWrapper">
-          <LocationList
-            post={this.post}
-            locations={this.state.locations}
-            data={this.state.measurements}
-          />
+    if(this.state.locations && this.state.measurements) {
+      return(
+        <div className="LocationsContainer">
+          <Timer counter={this.state.lastUpdate} />
+          <div className="LocationWrapper">
+            <LocationList
+              post={this.post}
+              locations={this.state.locations}
+              data={this.state.measurements}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    else {
+      return( 
+        <div className="LocationsContainer">
+          <Timer counter={this.state.lastUpdate} />
+          <div className="LocationWrapper">
+          </div>
+        </div>
+      );
+    }
   }
 }
