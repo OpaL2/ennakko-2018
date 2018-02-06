@@ -2,6 +2,7 @@ var React = require('react');
 
 const Location = require('./Location');
 const Timer = require('./Timer');
+const Alerts = require('./Alerts');
 
 
 module.exports = class LocationContainer extends React.Component {
@@ -10,10 +11,15 @@ module.exports = class LocationContainer extends React.Component {
     super(props);
 
     this.post = this.post.bind(this);
+    this.clearAlerts = this.clearAlerts.bind(this);
     this.state = {
       locations: undefined, 
       measurements: undefined, 
-      lastUpdate: 0
+      lastUpdate: 0,
+      alerts: {
+        success: false,
+        error: false
+      }
     };
     this.getLocations();
     this.update();
@@ -55,25 +61,40 @@ module.exports = class LocationContainer extends React.Component {
   }
 
   apiError(err){
-    console.log(err.status);
+    this.setState({alerts:{error: true, success: false}});
+  }
+
+  clearAlerts() {
+    console.log("Alerts cleared")
+    this.setState({alerts: {success: false, error: false}});
   }
 
   post(location_id, temperature) {
     this.props.API.post(location_id, temperature)
     .then( (measurements) => {
       this.setState(measurements);
-      this.setState({lastUpdate: 0});
+      this.setState({lastUpdate: 0, alerts:{success: true, error: false}});
     })
     .catch(this.apiError);
   }
 
   render() {
 
+    const SuccessAlert = (
+      <div id="success" className="alert alert-success alert-dismissible fade show" role="alert">
+        Your submission was recieved!
+        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      );
+
     if(this.state.locations && this.state.measurements) {
       return(
-        <div className="LocationsContainer">
+        <div className="LocationsContainer container">
+          <Alerts alerts={this.state.alerts} handler={this.clearAlerts} />
           <Timer counter={this.state.lastUpdate} />
-          <ul className="Locations">
+          <ul className="Locations row">
             {this.state.locations.map( (location) => 
             <Location key={location.id}
               info={location}

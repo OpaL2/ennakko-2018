@@ -22,12 +22,22 @@ module.exports = class TemperatureForm extends React.Component {
 
   render() {
     return(
-      <form className="TemperatureForm" onSubmit={this.handleSubmit}>
+      <form className="TemperatureForm container" onSubmit={this.handleSubmit}>
         <label>
-          Temperature:
-          <input type="number" value={this.state.temperature} onChange={this.handleChange} />
+          <div className="row">
+            Temperature: 
+            <span className="Temperature">{this.state.temperature}</span>
+          </div>
+          <div className="SliderContainer row">
+            <input type="range"
+              min="-60"
+              max="100"
+              className="TemperatureSlider"
+              value={this.state.temperature}
+              onChange={this.handleChange} />
+          </div>
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" className="row" />
       </form>
       );
   }
