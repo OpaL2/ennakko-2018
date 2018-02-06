@@ -29,7 +29,7 @@ module.exports = class LocationContainer extends React.Component {
     this.setState( (prev, props) => {
       return {lastUpdate: prev.lastUpdate + 1}
     });
-    if(this.lastUpdate == 360) {
+    if(this.state.lastUpdate == 360) {
       this.update();
     };
   }
@@ -67,7 +67,7 @@ module.exports = class LocationContainer extends React.Component {
   render() {
     function LocationList(props) {
       return (
-        <ul className="Locations" >
+        <ul class="Locations">
           {props.locations.map( (location) => 
             <Location key={location.id}
               info={location}
@@ -83,13 +83,12 @@ module.exports = class LocationContainer extends React.Component {
       return(
         <div className="LocationsContainer">
           <Timer counter={this.state.lastUpdate} />
-          <div className="LocationWrapper">
             <LocationList
-              post={this.post}
+              post={(id, temp) => {this.post(id, temp)}}
               locations={this.state.locations}
               data={this.state.measurements}
             />
-          </div>
+
         </div>
       );
     }
@@ -98,8 +97,8 @@ module.exports = class LocationContainer extends React.Component {
       return( 
         <div className="LocationsContainer">
           <Timer counter={this.state.lastUpdate} />
-          <div className="LocationWrapper">
-          </div>
+          <ul class="Locations">
+          </ul>
         </div>
       );
     }

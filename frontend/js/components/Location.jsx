@@ -24,14 +24,12 @@ module.exports = class Location extends React.Component {
       );
     }
     return(
-      <li>
-        <div className="Location">
+        <li className="Location">
           <h2 className="Name">{this.props.info.name}</h2>
           <Measurements 
             data={$.grep(this.props.data, (e) => {return e.location_id === this.props.info.id})[0]}
             />
-        </div>
-      </li>
+        </li>
     );
   }
 }
