@@ -20,6 +20,26 @@ Response format:
 }
 ```
 
+## get /measurements/:location_id/:page
+
+Returns collection of measurements with given query parameters.
+```
+
+Responses with array of measurements:
+Responese content:
+```
+{
+  "location_id": int,
+  "measurements":[
+    {
+      "time": string,
+      "temperature": float,
+      "id": int
+    }
+  ]
+}
+```
+
 ## get /measurements/latest/
 
 Returns latest measurement for all locations and also highest and lowest measurement in last 24 hours.
@@ -30,7 +50,8 @@ Returns latest measurement for all locations and also highest and lowest measure
       "location_id": int,
       "latest": float,
       "highest": float,
-      "lowest": float
+      "lowest": float,
+      "total": int
     }
   ]
 }

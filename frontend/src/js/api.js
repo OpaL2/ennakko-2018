@@ -29,6 +29,19 @@ exports.getLatest = () => {
   });
 }
 
+exports.get = (location_id, page) => {
+  return new Promise( (resolve, reject) => {
+    $.ajax({
+      url: '/api/measurements/' + location_id + '/' + page,
+      type: 'GET',
+      dataType: 'json',
+      Timeout: TIMEOUT
+    })
+    .done( (res) => resolve(res))
+    .fail( (err) => reject(res));
+  });
+}
+
 exports.post = (location, temp) => {
   return new Promise( (resolve, reject) => {
     $.ajax({

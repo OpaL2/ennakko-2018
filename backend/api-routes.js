@@ -39,9 +39,10 @@ router.get('/measurements/latest', (req, res) => {
   measurements.getLatest().then(ok(res), err(res));
 });
 
-router.get('/measurements', jsonParser, (req, res) => {
+router.get('/measurements/:location_id/:page', (req, res) => {
   log.info('Some measurements requested from: ', req.socket.address());
-  measurements.get(req.body),then(ok(res), err(res));
+  measurements.get(req.params.location_id, req.params.page * 10, 10)
+  .then(ok(res), err(res));
 });
 
 router.post('/measurements', jsonParser, (req, res) => {
