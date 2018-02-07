@@ -28,3 +28,7 @@ exports.create = (temperature, id) => {
     VALUES (:temperature, :id)', {temperature:temperature, id:id}).then( () => {
       return getLatest()});
 };
+
+exports.get = (structure) => {
+  return db.query('SELECT ')
+}
