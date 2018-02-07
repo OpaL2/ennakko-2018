@@ -35,10 +35,12 @@ router.get('/locations', (req, res) => {
 });
 
 router.get('/measurements/latest', (req, res) => {
+  log.info('Latest measurements requested from: ', req.socket.address());
   measurements.getLatest().then(ok(res), err(res));
 });
 
 router.post('/measurements', jsonParser, (req, res) => {
+  log.info('New measurement posted from: ', req.socket.address());
   measurements.create(req.body.temperature, req.body.location_id)
     .then(ok(res), err(res));
 });

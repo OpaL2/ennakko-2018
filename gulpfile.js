@@ -14,17 +14,17 @@ var buffer = require('vinyl-buffer');
 var notify = require('gulp-notify');
 
 gulp.task('sass', () => {
-  return gulp.src('./frontend/sass/**/*.scss')
+  return gulp.src('./frontend/src/sass/**/*.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(cssmin())
     .pipe( rename ( (path) => {
       path.extname = '.min.css';
     }))
-    .pipe(gulp.dest('./frontend/public/css/'));
+    .pipe(gulp.dest('./frontend/build/public/css/'));
 });
 
 gulp.task('sass:watch', () => {
-  gulp.watch('frontend/sass/**/*.scss', ['sass']);
+  gulp.watch('frontend/src/sass/**/*.scss', ['sass']);
 });
 
 function js(startPath, targetFile) {
@@ -41,16 +41,19 @@ function js(startPath, targetFile) {
       })
       .pipe(source(targetFile))
       .pipe(buffer())
-      .pipe(gulp.dest('./frontend/public/js/'));
+      .pipe(uglify())
+      .pipe(gulp.dest('./frontend/build/public/js/'));
   };
 }
 
-gulp.task('js', js('frontend/js/App.js', 'App.min.js'));
+
+
+gulp.task('js', js('frontend/src/js/App.js', 'App.min.js'));
 
 gulp.task('compile', ['js', 'sass']);
 
 gulp.task('js:watch', () => {
-  gulp.watch('frontend/js/**/*.js*', ['js']);
+  gulp.watch('frontend/src/js/**/*.js*', ['js']);
 });
 
 gulp.task('watch', ['js:watch', 'sass:watch']);
@@ -58,7 +61,7 @@ gulp.task('watch', ['js:watch', 'sass:watch']);
 gulp.task('server', () => {
   var app = server.new('app.js');
   app.start();
-  gulp.watch(['frontend/public/**/*.min.js', 'frontend/public/**/*.min.css'], (f) => {
+  gulp.watch(['frontend/build/public/**/*.min.js', 'frontend/build/public/**/*.min.css'], (f) => {
     console.log('frontend recompiled, notifying livereload');
     app.notify.apply(app, [f]);
   });

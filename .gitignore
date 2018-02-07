@@ -2,7 +2,7 @@
 log/*
 config/config.js
 package-lock.json
-frontend/public
+frontend/build
 
 
 # Created by https://www.gitignore.io/api/node,linux,macos,windows,sublimetext

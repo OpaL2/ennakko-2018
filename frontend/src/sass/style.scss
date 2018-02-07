@@ -5,9 +5,9 @@ Afterwards adds own css
 */
 
 /*Bootstrap related imports*/
-@import '../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import '../../node_modules/bootstrap/scss/bootstrap-grid.scss';
+@import '../../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
 $font-stack: Henriette, slab-serif;
 
@@ -68,4 +68,8 @@ body {
 
 .card {
   border-style: none;
+}
+
+#site-header {
+  margin-top: 2rem;
 }
