@@ -36,6 +36,7 @@ body {
 .TimerContainer {
   color: $secondary-color;
   margin-bottom: 0.2rem;
+  margin-left: 1rem;
 }
 
 .Timer {
@@ -68,6 +69,16 @@ body {
 
 #site-header {
   margin-top: 2rem;
+}
+
+#loader {
+  width: 100%;
+  text-align: center;
+}
+
+.loader-text {
+  color: $secondary-color;
+  margin: auto;
 }
 
 @import 'range';

@@ -7,7 +7,7 @@ module.exports = class Timer extends React.Component {
 
   render() {
     return(
-      <span className="Timer">
+      <span className="Timer col">
         {this.props.counter < 60 ? 
           this.props.counter + " s" : 
           Math.floor(this.props.counter / 60) + " min"}
