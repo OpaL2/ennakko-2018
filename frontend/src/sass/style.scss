@@ -11,11 +11,7 @@ Afterwards adds own css
 
 $font-stack: Henriette, slab-serif;
 
-$primary-color: #444;
-$box-color: #20a0ff;
-$box-color-hover: #1090ef;
-$box-font-color: #fff;
-$seconday-color: #aaa;
+@import '_colors';
 
 %highlight-box {
   color: $box-font-color;
@@ -38,7 +34,7 @@ body {
 }
 
 .TimerContainer {
-  color: $seconday-color;
+  color: $secondary-color;
   margin-bottom: 0.2rem;
 }
 
@@ -52,7 +48,7 @@ body {
 }
 
 .MeasurementsInfo {
-  color: $seconday-color;
+  color: $secondary-color;
   margin-bottom: 0.5rem;
 }
 
@@ -73,3 +69,6 @@ body {
 #site-header {
   margin-top: 2rem;
 }
+
+@import 'range';
+
