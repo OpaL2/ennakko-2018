@@ -13,7 +13,7 @@ module.exports = class Location extends React.Component {
     function Measurements(props) {
       return(
         <ul className="Measurements list-group">
-          <span class="MeasurementsInfo">Last 24 hours:</span>
+          <span className="MeasurementsInfo">Last 24 hours:</span>
           <li className="list-group-item">
           Latest:<span className="Temperature">
             {props.data.latest !== null ? props.data.latest : "-"} &deg;C
@@ -33,7 +33,7 @@ module.exports = class Location extends React.Component {
       );
     }
     return(
-        <div className="Location col-md-4 card">
+        <div className="Location col-md-6 col-lg-4 card">
           <div className="card-body">
             <h2 className="Name">{this.props.info.name}</h2>
           </div>

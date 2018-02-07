@@ -87,7 +87,7 @@ module.exports = class LocationContainer extends React.Component {
           <div className="TimerContainer row">
             Last updated: <Timer counter={this.state.lastUpdate} />
           </div>
-          <div className="Locations row">
+          <div className="Locations row justify-content-start">
             {this.state.locations.map( (location) => 
               <Location key={location.id}
                 info={location}
