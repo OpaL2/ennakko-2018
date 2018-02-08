@@ -12,6 +12,8 @@ module.exports = class LocationContainer extends React.Component {
 
     this.post = this.post.bind(this);
     this.clearAlerts = this.clearAlerts.bind(this);
+    this.getMeasurementPage = this.getMeasurementPage.bind(this);
+    this.apiError = this.apiError.bind(this);
     this.state = {
       locations: undefined, 
       measurements: undefined, 
@@ -60,12 +62,15 @@ module.exports = class LocationContainer extends React.Component {
     .catch(this.apiError);
   }
 
+  getMeasurementPage(location_id,page){
+    return this.props.API.get(location_id,page);
+  }
+
   apiError(err){
     this.setState({alerts:{error: true, success: false}});
   }
 
   clearAlerts() {
-    console.log("Alerts cleared")
     this.setState({alerts: {success: false, error: false}});
   }
 
@@ -93,6 +98,8 @@ module.exports = class LocationContainer extends React.Component {
                 info={location}
                 post = {this.post}
                 data={this.state.measurements}
+                getPage = {this.getMeasurementPage}
+                apiError = {this.apiError}
               />
             )}
           </div>

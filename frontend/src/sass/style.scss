@@ -27,7 +27,7 @@ body {
   color: $primary-color;
 }
 
-.Temperature {
+.Temperature{
   @extend %highlight-box;
   width: 5rem;
   float: right;
@@ -56,6 +56,10 @@ body {
 .btn {
   @extend %highlight-box;
   padding: 0.2rem;
+}
+
+#ToggleMeasurements {
+  margin-top: 0.5rem;
 }
 
 .btn:hover {

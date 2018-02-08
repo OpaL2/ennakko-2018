@@ -1,7 +1,8 @@
-var React = require('react');
-var $ = require('jquery');
+const React = require('react');
+const $ = require('jquery');
 
 const TemperatureForm = require('./TemperatureForm');
+const Measurements = require('./Measurements');
 
 module.exports = class Location extends React.Component {
 
@@ -10,28 +11,7 @@ module.exports = class Location extends React.Component {
   }
 
   render() {
-    function Measurements(props) {
-      return(
-        <ul className="Measurements list-group">
-          <span className="MeasurementsInfo">Last 24 hours:</span>
-          <li className="list-group-item">
-          Latest:<span className="Temperature">
-            {props.data.latest !== null ? props.data.latest : "-"} &deg;C
-          </span>
-          </li>
-          <li className="list-group-item">
-          Max:<span className="Temperature">
-            {props.data.highest !== null ? props.data.highest : "-"} &deg;C
-          </span>
-          </li>
-          <li className="list-group-item">
-          Min:<span className="Temperature">
-            {props.data.lowest !== null ? props.data.lowest : "-"} &deg;C
-          </span>
-          </li>
-        </ul>
-      );
-    }
+
     return(
         <div className="Location col-md-6 col-lg-4 card">
           <div className="card-body">
@@ -42,6 +22,9 @@ module.exports = class Location extends React.Component {
             data={$.grep(this.props.data, (e) => {
               return e.location_id === this.props.info.id
             })[0]}
+            getPage = {this.props.getPage}
+            apiError = {this.props.apiError}
+            info = {this.props.info}
             />
           </div>
           <div className="card-body">
