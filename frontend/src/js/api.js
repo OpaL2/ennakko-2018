@@ -38,7 +38,7 @@ exports.get = (location_id, page) => {
       Timeout: TIMEOUT
     })
     .done( (res) => resolve(res))
-    .fail( (err) => reject(res));
+    .fail( (err) => reject(err));
   });
 }
 

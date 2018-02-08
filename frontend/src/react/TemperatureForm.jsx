@@ -20,6 +20,8 @@ module.exports = class TemperatureForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.post(this.state.value);
+    this.setState({value: 0});
   }
 
   render(){
@@ -29,7 +31,7 @@ module.exports = class TemperatureForm extends React.Component {
         <label className="info">
             Post new temperature:
         </label>
-          <div className="ist-group">
+          <div className="list-group">
           <div className="numeric-container list-group-item">
             <input type="number"
               min={this.min}

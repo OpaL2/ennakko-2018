@@ -14,6 +14,7 @@ module.exports = class LocationsNav extends React.Component {
           key={location.id}
           info={location}
           active={this.props.active === location.id}
+          set = {this.props.set}
         />
       )}
     </div>
@@ -31,6 +32,7 @@ class LocationNavElement extends React.Component {
 
   navClick(e) {
     e.preventDefault();
+    this.props.set(this.props.info.id);
   }
 
   render(){
