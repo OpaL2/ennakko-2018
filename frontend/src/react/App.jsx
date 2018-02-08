@@ -24,12 +24,20 @@ class App extends React.Component {
       latest: undefined,
       active: undefined,
       pages: undefined,
+      alerts: {success: false, error: false}
     }
     this.setActive = this.setActive.bind(this);
     this.postData = this.postData.bind(this);
 
 
     this.getLocations();
+  }
+
+  apiError() {
+    this.setState((prev, props) =>{
+      prev.alerts.error = true;
+      return prev;
+    });
   }
 
   getLocations(){
@@ -44,7 +52,7 @@ class App extends React.Component {
   }
 
   setActive(id){
-    this.setState({active: id}, () =>{
+    this.setState({active: id, pages: undefined}, () =>{
       this.update();
     });
   }
@@ -52,12 +60,13 @@ class App extends React.Component {
   postData(temperature){
     this.props.API.post(this.state.active, temperature)
     .then( (res) => {
-      this.setState({latest: res.measurements});
+      this.setState({latest: res.measurements}, this.updateAll);
     })
     .catch(this.apiError);
   }
 
   update(){
+    //Can be runned simultaneously, does not have side effects
     this.updateLatest();
     this.updateAll();
   }
@@ -70,7 +79,7 @@ class App extends React.Component {
           this.setState( (prev, props) => {
             return {pages: prev.pages.concat(res.measurements)}
           }, () => {
-            if(res.measurements.lenght > 0){
+            if(res.measurements.lenght >= 50){
               this.loadNextPage(location, page + 1);
             }
           });
@@ -81,6 +90,8 @@ class App extends React.Component {
   }
 
   updateAll(){
+    //loads all measurements for specific location.
+    //Uses callback recursion.
     this.props.API.get(this.state.active, 0)
     .then( (res) => {
       if(res.location_id == this.state.active){
@@ -108,14 +119,14 @@ class App extends React.Component {
       return(
         <div className="container">
           <div className="row">
-            <nav className="col-md-3 col-lg-2">
+            <nav className="col-md-3">
               <LocationsNav
                 locations={this.state.locations}
                 active={this.state.active}
                 set={this.setActive}
               />
             </nav>
-            <main className="col-md-9 col-lg-10">
+            <main className="col-md-9">
               <div className="row">
                 <div className="col-md">
                   <div className="main-block">

@@ -1,49 +1,38 @@
 var $ = require('jquery');
 var Promise = require('../../../backend/promise');
 
-const TIMEOUT = 5000;
-
 exports.getLocations = () => {
-  return new Promise( (resolve, reject) => {
+  return Promise.resolve(
     $.ajax({
       url: '/api/locations',
       type: 'GET',
       dataType: 'json',
-      timeout:TIMEOUT
-    })
-    .done( (res) => resolve(res))
-    .fail( (err) => reject(err));
-  });
+      timeout:3000
+    }));
 }
 
 exports.getLatest = () => {
-  return new Promise( (resolve, reject) => {
+  return Promise.resolve(
     $.ajax({
       url: '/api/measurements/latest',
       type: 'GET',
       dataType: 'json',
-      timeout:TIMEOUT
-    })
-    .done( (res) => resolve(res))
-    .fail( (err) => reject(err));
-  });
+      timeout:3000
+    }));
 }
 
 exports.get = (location_id, page) => {
-  return new Promise( (resolve, reject) => {
+  return Promise.resolve(
     $.ajax({
       url: '/api/measurements/' + location_id + '/' + page,
       type: 'GET',
       dataType: 'json',
-      Timeout: TIMEOUT
-    })
-    .done( (res) => resolve(res))
-    .fail( (err) => reject(err));
-  });
+      timeout: 3000
+    }));
 }
 
 exports.post = (location, temp) => {
-  return new Promise( (resolve, reject) => {
+  return Promise.resolve(
     $.ajax({
       url: '/api/measurements',
       type: 'POST',
@@ -53,9 +42,6 @@ exports.post = (location, temp) => {
         location_id: location
       }),
       dataType: 'json',
-      timeout:TIMEOUT
-    })
-    .done( (res) => resolve(res))
-    .fail( (err) => reject(err));
-  });
+      timeout:3000
+    }));
 }

@@ -41,7 +41,7 @@ router.get('/measurements/latest', (req, res) => {
 
 router.get('/measurements/:location_id/:page', (req, res) => {
   log.info('Some measurements requested from: ', req.socket.address());
-  measurements.get(req.params.location_id, req.params.page * 10, 10)
+  measurements.get(req.params.location_id, req.params.page * 50, 50)
   .then(ok(res), err(res));
 });
 
