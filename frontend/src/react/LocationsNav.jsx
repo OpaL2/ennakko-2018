@@ -8,17 +8,15 @@ module.exports = class LocationsNav extends React.Component {
 
   render(){
     return (
-    <nav>
-      <div className="list-group">
-          {this.props.locations.map( (location) => 
-            <LocationNavElement 
-              key={location.id}
-              info={location}
-              active={this.props.active === location.id}
-            />
-          )}
-      </div>
-    </nav>
+    <div className="list-group">
+      {this.props.locations.map( (location) => 
+        <LocationNavElement 
+          key={location.id}
+          info={location}
+          active={this.props.active === location.id}
+        />
+      )}
+    </div>
     );
   }
 }
