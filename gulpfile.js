@@ -41,27 +41,31 @@ function js(startPath, targetFile) {
       })
       .pipe(source(targetFile))
       .pipe(buffer())
-      .pipe(uglify())
       .pipe(gulp.dest('./frontend/build/public/js/'));
   };
 }
 
+gulp.task('react', js('frontend/src/react/App.jsx', 'App.min.js'));
 
+gulp.task('react:watch', () => {
+  gulp.watch('frontend/src/react/**/*.js*', ['react']);
+});
 
 gulp.task('js', js('frontend/src/js/App.js', 'App.min.js'));
 
-gulp.task('compile', ['js', 'sass']);
+gulp.task('compile', ['react', 'sass']);
 
 gulp.task('js:watch', () => {
   gulp.watch('frontend/src/js/**/*.js*', ['js']);
 });
 
-gulp.task('watch', ['js:watch', 'sass:watch']);
+gulp.task('watch', ['react:watch', 'sass:watch']);
 
 gulp.task('server', () => {
   var app = server.new('app.js');
   app.start();
-  gulp.watch(['frontend/build/public/**/*.min.js', 'frontend/build/public/**/*.min.css'], (f) => {
+  gulp.watch(['frontend/build/public/**/*.min.js', 
+    'frontend/build/public/**/*.min.css'], (f) => {
     console.log('frontend recompiled, notifying livereload');
     app.notify.apply(app, [f]);
   });

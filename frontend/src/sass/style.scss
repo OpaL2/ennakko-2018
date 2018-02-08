@@ -22,6 +22,18 @@ $font-stack: Henriette, slab-serif;
   padding: 0px 5px
 }
 
+%box-color {
+  border-color: $box-color;
+  background-color: $box-color;
+  color: $box-font-color;
+}
+
+%box-color-hover {
+  border-color: $box-color-hover;
+  background-color: $box-color-hover;
+  color: $box-font-color;
+}
+
 body {
   font: 100% $font-stack;
   color: $primary-color;
@@ -83,6 +95,18 @@ body {
 .loader-text {
   color: $secondary-color;
   margin: auto;
+}
+
+#locationNavButton:hover {
+  @extend %box-color-hover;
+}
+
+#locationNavButton.active{
+  @extend %box-color;
+}
+
+#locationNavButton.active:hover {
+  @extend %box-color;
 }
 
 @import 'range';
