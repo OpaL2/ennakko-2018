@@ -8,16 +8,19 @@ module.exports = class LocationsNav extends React.Component {
 
   render(){
     return (
-    <div className="list-group">
-      {this.props.locations.map( (location) => 
-        <LocationNavElement 
-          key={location.id}
-          info={location}
-          active={this.props.active === location.id}
-          set = {this.props.set}
-        />
-      )}
-    </div>
+      <React.Fragment >
+      <div className="info">Locations:</div>
+      <div className="list-group">
+        {this.props.locations.map( (location) => 
+          <LocationNavElement 
+            key={location.id}
+            info={location}
+            active={this.props.active === location.id}
+            set = {this.props.set}
+          />
+        )}
+      </div>
+      </React.Fragment>
     );
   }
 }

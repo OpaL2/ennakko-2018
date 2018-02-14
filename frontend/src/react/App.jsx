@@ -11,6 +11,7 @@ const LocationsNav = require('./LocationsNav');
 const LatestMeasurements = require('./LatestMeasurements');
 const TemperatureForm = require('./TemperatureForm');
 const Measurements = require('./Measurements');
+const Alerts = require('./Alerts.jsx');
 
 
 const rootNode = $('#react-root')[0];
@@ -28,6 +29,7 @@ class App extends React.Component {
     }
     this.setActive = this.setActive.bind(this);
     this.postData = this.postData.bind(this);
+    this.clearAlerts = this.clearAlerts.bind(this);
 
 
     this.getLocations();
@@ -38,6 +40,10 @@ class App extends React.Component {
       prev.alerts.error = true;
       return prev;
     });
+  }
+
+  clearAlerts() {
+    this.setState({alerts: {success: false, error: false}});
   }
 
   getLocations(){
@@ -58,11 +64,17 @@ class App extends React.Component {
   }
 
   postData(temperature){
-    this.props.API.post(this.state.active, temperature)
-    .then( (res) => {
-      this.setState({latest: res.measurements}, this.updateAll);
-    })
-    .catch(this.apiError);
+    this.setState({alerts: {success: false, error: false}}, () => {
+      this.props.API.post(this.state.active, temperature)
+      .then( (res) => {
+        this.setState( (prev, props) => {
+          prev.alerts.success = true;
+          prev.latest = res.measurements;
+          return prev;
+        }, this.updateAll);
+      })
+      .catch(this.apiError);
+    });
   }
 
   update(){
@@ -96,7 +108,9 @@ class App extends React.Component {
     .then( (res) => {
       if(res.location_id == this.state.active){
         this.setState({pages: res.measurements}, () =>{
-          this.loadNextPage(res.location_id, 0);
+          if(res.measurements.lenght >= 50){
+              this.loadNextPage(res.location_id, 0);
+            }
         });
       }
     })
@@ -118,6 +132,11 @@ class App extends React.Component {
     if(this.state.locations && this.state.latest) {
       return(
         <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <Alerts alerts={this.state.alerts} handler={this.clearAlerts}/>
+            </div>
+          </div>
           <div className="row">
             <nav className="col-md-3">
               <LocationsNav

@@ -41,6 +41,7 @@ function js(startPath, targetFile) {
       })
       .pipe(source(targetFile))
       .pipe(buffer())
+      .pipe(uglify())
       .pipe(gulp.dest('./frontend/build/public/js/'));
   };
 }

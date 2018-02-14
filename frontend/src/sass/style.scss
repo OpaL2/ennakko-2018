@@ -98,6 +98,10 @@ body {
   margin: auto;
 }
 
+.unit {
+  color: $secondary-color;
+}
+
 #locationNavButton:hover {
   @extend %box-color-hover;
 }

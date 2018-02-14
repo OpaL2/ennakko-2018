@@ -40,6 +40,7 @@ module.exports = class TemperatureForm extends React.Component {
               value={this.state.value}
               onChange={this.handleChange}
             />
+            <span className="unit"> &deg; C </span>
           </div>
           <div className="slider-container list-group-item">
             <input type="range"
