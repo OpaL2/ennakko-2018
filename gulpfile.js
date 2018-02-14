@@ -41,12 +41,25 @@ function js(startPath, targetFile) {
       })
       .pipe(source(targetFile))
       .pipe(buffer())
-      .pipe(uglify())
       .pipe(gulp.dest('./frontend/build/public/js/'));
   };
 }
 
+function jsMin(startPath, targetFile) {
+  return function () {
+    process.env.NODE_ENV = 'production';
+     return browserify({entries: startPath, debug: true, extensions: ['.jsx']})
+      .transform(babelify, {presets: ['env', 'react']})
+      .bundle()
+      .pipe(source(targetFile))
+      .pipe(buffer())
+      .pipe(gulp.dest('./frontend/build/public/js/'));
+  }
+}
+
 gulp.task('react', js('frontend/src/react/App.jsx', 'App.min.js'));
+
+gulp.task('react-build', js('frontend/src/react/App.jsx', 'App.min.js'));
 
 gulp.task('react:watch', () => {
   gulp.watch('frontend/src/react/**/*.js*', ['react']);
@@ -55,6 +68,8 @@ gulp.task('react:watch', () => {
 gulp.task('js', js('frontend/src/js/App.js', 'App.min.js'));
 
 gulp.task('compile', ['react', 'sass']);
+
+gulp.task('build', ['react-build', 'sass']);
 
 gulp.task('js:watch', () => {
   gulp.watch('frontend/src/js/**/*.js*', ['js']);

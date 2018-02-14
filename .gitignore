@@ -3,7 +3,7 @@ log/*
 config/config.js
 package-lock.json
 frontend/build
-
+*.tar.*
 
 # Created by https://www.gitignore.io/api/node,linux,macos,windows,sublimetext
 
