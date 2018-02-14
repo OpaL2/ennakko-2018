@@ -53,13 +53,14 @@ function jsMin(startPath, targetFile) {
       .bundle()
       .pipe(source(targetFile))
       .pipe(buffer())
+      .pipe(uglify())
       .pipe(gulp.dest('./frontend/build/public/js/'));
   }
 }
 
 gulp.task('react', js('frontend/src/react/App.jsx', 'App.min.js'));
 
-gulp.task('react-build', js('frontend/src/react/App.jsx', 'App.min.js'));
+gulp.task('react-build', jsMin('frontend/src/react/App.jsx', 'App.min.js'));
 
 gulp.task('react:watch', () => {
   gulp.watch('frontend/src/react/**/*.js*', ['react']);

@@ -13,6 +13,7 @@ cp -R backend $name/
 cp -R db $name/
 cp -R doc $name/
 cp -R frontend/build/public/* $name/frontend/build/public/
+cp frontend/index.html $name/frontend/
 cp config/config-sample.js $name/config
 
 cp app.js $name/

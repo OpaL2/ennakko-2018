@@ -13,6 +13,6 @@ app.get(['/', '/index.html'], (req, res) => {
 
 app.use('/public/', express.static(__dirname + '/frontend/build/public'));
 
-app.listen(config.port, () => {
+app.listen(config.port, 'localhost', () => {
   log.info('App is listening port: ' + config.port);
 });
